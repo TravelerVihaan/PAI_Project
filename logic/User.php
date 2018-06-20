@@ -66,17 +66,17 @@ class User{
     if ($count_row == 1) {
       // this login var will use for the session thing
       $_SESSION['login'] = true;
-      $_SESSION['uid'] = $user_data['uid'];
+      $_SESSION['uid'] = $user_data['id_user'];
       return true;
     }else{
       return false;
     }
   }
 
-    /*** for showing the username or fullname ***/
+
     public function getColumn($uid,$col){
-      $sql3="SELECT $col FROM user WHERE user_id = $uid";
-      $result = mysqli_query($this->db,$sql3);
+      $sql="SELECT $col FROM user WHERE id_user = $uid";
+      $result = mysqli_query($this->db,$sql);
       $user_data = mysqli_fetch_array($result);
       //echo $user_data['fullname'];
     }

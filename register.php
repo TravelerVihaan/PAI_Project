@@ -8,9 +8,11 @@ $user = new User(); // Checking for user logged in or not
     $register = $user->registerUser($imie, $nazwisko,$username, $email, $haslo1, $haslo2);
     if ($register) {
       // Registration Success
+      $_SESSION['tmpreg'] = 1;
       echo 'Registration successful <a href="login.php">Click here</a> to login';
     } else {
       // Registration Failed
+      $_SESSION['tmpreg'] = 2;
       echo 'Registration failed.';
     }
  }
@@ -42,6 +44,18 @@ $user = new User(); // Checking for user logged in or not
                 </div>
               <?php
                 if(isSet($_SESSION['login']) == FALSE){
+                  if(isset($_SESSION['tmpreg']) and $_SESSION['tmpreg'] == 1){
+                    ?>
+                    <div class="alert alert-success" role="alert">Registration successful <a href="login.php">Click here</a> to login</div>
+                    <?php
+                    //echo 'Registration successful <a href="login.php">Click here</a> to login';
+                  }else if(isset($_SESSION['tmpreg']) and $_SESSION['tmpreg'] == 2){
+                    ?>
+                    <div class="alert alert-danger" role="alert">Registration failed.</div>
+                    <?php
+                    //echo 'Registration failed.';
+                  }
+
               ?>
                 <h3> Rejestracja nowego użytkownika</h3><br>
                 <form method=post>

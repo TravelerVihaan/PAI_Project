@@ -41,8 +41,21 @@ session_start();
                     <div class="alert alert-success" role="alert">Udało Ci się zalogować!</div>
                     <?php
                     $_SESSION['tmplogged'] = 0;
-                }
-                 ?>
+                  }
+                  /*
+                if(isset($_SESSION['tmplogout']) and $_SESSION['tmplogout'] == 1){ ?>
+                    <div class="alert alert-success" role="alert">Udało Ci się wylogować!</div>
+                    <?php
+                    $_SESSION['tmplogout'] = 0;
+                  }
+                  */
+                     ?>
+
+                     <?php
+                     if(isset($_SESSION['uid'])){
+                     $usr = $_SESSION['uid'];
+                     echo "$usr";
+                   } ?>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
