@@ -1,15 +1,15 @@
 <?php
 
 class Database {
-    static $db;
+    protected $db;
 
     function __construct(){}
 
     function connect(){
-        $db = mysqli_connect(self::$host, self::$user, self::$password, self::$database);
+        $this->db = mysqli_connect('localhost', 'root', '', 'bstage');
 
-        if($db){
-            return $db;
+        if($this->db){
+            return $this->db;
         }else{
             return die('Connection error!');
         }
@@ -20,5 +20,9 @@ class Database {
         return mysqli_query($this->connect(), $q);
     }
 }
+
+    function finish(){
+      $this->db->close();
+    }
 
 ?>

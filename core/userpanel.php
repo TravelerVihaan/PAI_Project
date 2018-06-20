@@ -11,13 +11,13 @@ $db = new Database();
                         <?php
                           if(isset($_SESSION['uid']) and $_SESSION['uid'] == 1){
                             ?>
-                            <a href="../adminpanel.php"><button type="button" class="btn btn-secondary">Panel administratora</button></a>
+                            <a href="../adminpage.php"><button type="button" class="btn btn-secondary">Panel administratora</button></a>
                             <a href="logout.php"><button type="button" class="btn btn-secondary">Wyloguj się</button></a>
                             <?php
                             echo "Witaj, jesteś administratorem";
                           }else if(isset($_SESSION['uid']) and $_SESSION['uid'] > 1){
                             ?>
-                            <a href="../register.php"><button type="button" class="btn btn-secondary">Panel użytkownik</button></a>
+                            <a href="../userpage.php"><button type="button" class="btn btn-secondary">Panel użytkownika</button></a>
                             <a href="logout.php"><button type="button" class="btn btn-secondary">Wyloguj się</button></a>
                             <?php
                             echo "Witaj, jesteś userem";

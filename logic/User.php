@@ -56,7 +56,7 @@ class User{
   public function checkLogin($username, $password){
 
     $password = md5($password);
-    $sql2="SELECT id_user from user WHERE username='$username' and password='$password'";
+    $sql2="SELECT id_role from user WHERE username='$username' and password='$password'";
 
     //checking if the username is available in the table
     $result = mysqli_query($this->db,$sql2);
@@ -66,7 +66,7 @@ class User{
     if ($count_row == 1) {
       // this login var will use for the session thing
       $_SESSION['login'] = true;
-      $_SESSION['uid'] = $user_data['id_user'];
+      $_SESSION['uid'] = $user_data['id_role'];
       return true;
     }else{
       return false;
