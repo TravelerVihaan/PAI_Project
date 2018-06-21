@@ -36,19 +36,32 @@ session_start();
                 <br>
                 <h3> Muzyka</h3><br>
 
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Wykonawca</th>
+                      <th>Tytuł</th>
+                      <th>Rok wydania</th>
+                      <th>Format</th>
+                      <th>Gatunek</th>
+                    </tr>
+                  </thead>
+                  <tbody>
                 <?php
                 include_once 'logic/Database.php';
                 $database = new Database();
                 $q ="SELECT * FROM muzyka";
                 $result = $database->query($q);
+                ?>
+                <tr>
+                <?php
                 while($row = mysqli_fetch_assoc($result)){
-                  echo $row["performer"];
-                  echo $row["title"];
-                  echo $row["year"];
-                  echo $row['ftype'];
-                  echo $row['gname'];
-                  ?>
-                  <br>
+                  ?><th scope="row"><?php echo $row["performer"]; ?></th>
+                  <td><?php echo $row["title"]; ?></td>
+                  <td><?php echo $row["year"]; ?></td>
+                  <td><?php echo $row['ftype']; ?></td>
+                  <td><?php echo $row['gname']; ?></td></td>
+                  </tr>
                   <?php
                 }
 
@@ -56,10 +69,8 @@ session_start();
                 //$database->finish();
 
                  ?>
-
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-            </p>
+               </tbody>
+             </table>
             <br>
             <a href="javascript:scroll(0,0);">Wróć na górę strony</a>
             <br>

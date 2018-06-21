@@ -35,19 +35,31 @@ session_start();
                 </div>
                 <br>
                 <h3> Eventy</h3><br>
-                <?php
+                <table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Nazwa eventu</th>
+      <th>Data</th>
+      <th>Miejsce</th>
+      <th>Krótki opis</th>
+      <th>Kto dodał:</th>
+    </tr>
+  </thead>
+  <tbody>      <?php
                 include_once 'logic/Database.php';
                 $database = new Database();
                 $q ="SELECT * FROM eventy";
                 $result = $database->query($q);
+                ?>
+                <tr>
+                <?php
                 while($row = mysqli_fetch_assoc($result)){
-                  echo $row["ename"];
-                  echo $row["date"];
-                  echo $row["location"];
-                  echo $row['description'];
-                  echo $row['username'];
-                  ?>
-                  <br>
+                  ?><th scope="row"><?php echo $row["ename"]; ?></th>
+                  <td><?php echo $row["date"]; ?></td>
+                  <td><?php echo $row["location"]; ?></td>
+                  <td><?php echo $row['description']; ?></td>
+                  <td><?php echo $row['username']; ?></td></td>
+                  </tr>
                   <?php
                 }
 
@@ -55,6 +67,8 @@ session_start();
                 //$database->finish();
 
                  ?>
+               </tbody>
+             </table>
 
             </p>
             <br>
