@@ -27,7 +27,7 @@ class User{
       return false;
     }
 
-    if($password1 < 7 and $password1 > 30){
+    if(strlen($password1) < 7 || strlen($password1) > 30){
       if($password1 != $password2){
           return false;
       }

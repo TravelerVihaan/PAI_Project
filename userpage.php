@@ -35,8 +35,25 @@ session_start();
                 </div>
                 <br>
                 <h3> Panel Użytkownika</h3><br>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                <?php
+                if(isset($_SESSION['uid']) and $_SESSION['uid'] == 2){
+                  ?>
+                  <a href="changename.php"><button type="button" class="btn btn-dark">Zmień dane personalne</button></a>
+                  <br><br>
+                  <a href="changeemail.php"><button type="button" class="btn btn-dark">Zmień adres e-mail</button></a>
+                  <br><br>
+                  <a href="changepass.php"><button type="button" class="btn btn-dark">Zmień hasło</button></a>
+                  <br><br>
+                  <a href="addmusic.php"><button type="button" class="btn btn-dark">Dodaj wydawnictwo muzyczne do bazy</button></a>
+                  <br><br>
+                  <a href="addevent.php"><button type="button" class="btn btn-dark">Dodaj event do bazy</button></a>
+                  <?php
+                }else{
+                  ?>
+                  <div class="alert alert-danger" role="alert">Nie jesteś zarejestrowanym użytkownikiem, więc nie powinno Cię tu być!</div>
+                  <?php
+                }
+                  ?>
 
             <br>
             <a href="javascript:scroll(0,0);">Wróć na górę strony</a>
