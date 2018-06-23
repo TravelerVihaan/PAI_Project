@@ -2,7 +2,7 @@
 
 class UserActions{
 
-  public $db;
+  protected $db;
 
   public function __construct(){
     $this->db = new mysqli('localhost', 'root', '', 'bstage');

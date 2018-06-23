@@ -41,7 +41,8 @@ if (isset($_REQUEST['submit'])) {
                           <br>
                           <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="index.php">Strona główna</a></li>
-                            <li class="breadcrumb-item active">Panel Administratora</li>
+                            <li class="breadcrumb-item"><a href="adminpage.php">Panel Administratora</a></li>
+                            <li class="breadcrumb-item active">Lista użytkowników</li>
                           </ol>
                         </div>
                   </div>

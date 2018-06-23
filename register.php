@@ -46,12 +46,12 @@ $user = new User(); // Checking for user logged in or not
                 if(isSet($_SESSION['login']) == FALSE){
                   if(isset($_SESSION['tmpreg']) and $_SESSION['tmpreg'] == 1){
                     ?>
-                    <div class="alert alert-success" role="alert">Registration successful <a href="login.php">Click here</a> to login</div>
+                    <div class="alert alert-success" role="alert">Rejestracja udana! <a href="login.php">Kliknij tutaj</a> aby się zalogować!</div>
                     <?php
                     //echo 'Registration successful <a href="login.php">Click here</a> to login';
                   }else if(isset($_SESSION['tmpreg']) and $_SESSION['tmpreg'] == 2){
                     ?>
-                    <div class="alert alert-danger" role="alert">Registration failed.</div>
+                    <div class="alert alert-danger" role="alert">Rejestracja nieudana!</div>
                     <?php
                     //echo 'Registration failed.';
                   }

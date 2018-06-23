@@ -11,10 +11,10 @@ class AdminActions extends UserActions{
     $check = $this->db->query($sql);
     $count_row = $check->num_rows;
 
-    if ($count_row > 0){
+    if ($count_row == 1){
       $sql1 = "DELETE FROM user WHERE username='$usertoban'";
       $result = mysqli_query($this->db,$sql1) or die(mysqli_connect_errno()."Uzytkownik nie moze zostac usunięty");
-      return $result;
+      return true;
     }else{
       return false;
     }

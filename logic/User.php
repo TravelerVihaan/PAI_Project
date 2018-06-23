@@ -38,7 +38,7 @@ class User{
     $sql="SELECT * FROM user WHERE username='$username' OR email='$email'";
 
     //checking if the username or email is available in db
-    $check =  $this->db->query($sql) ;
+    $check =  $this->db->query($sql);
     $count_row = $check->num_rows;
 
     //if the username is not in db then insert to the table
