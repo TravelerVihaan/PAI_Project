@@ -20,6 +20,14 @@ class AdminActions extends UserActions{
     }
   }
 
+  public function acceptEvent(){
+
+  }
+
+  public function acceptMusic(){
+    
+  }
+
 }
 
  ?>

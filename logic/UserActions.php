@@ -77,5 +77,15 @@ class UserActions{
     }
   }
 
+  public function addEvent($eventname,$location,$eventdate,$opis,$iduser){
+    $sql = "INSERT INTO eventq (ename, date, location, description, id_whoadd) VALUES ('$eventname',STR_TO_DATE('$eventdate', '%m/%d/%Y'),'$location','$opis','$iduser')";
+    $result = mysqli_query($this->db,$sql) or die(mysqli_connect_errno()."Data cannot inserted");
+    return $result;
+  }
+
+  public function addMusic(){
+
+  }
+
 }
  ?>
