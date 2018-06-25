@@ -28,12 +28,26 @@ class AdminActions extends UserActions{
       //akceptacja
       if($action == 1){
         //transaction
+        /*
         $this->db->autocommit(FALSE);
         $sql1 = "INSERT INTO event SELECT * FROM eventq WHERE id_event='$id_event'";
         $this->db->query($sql1);
         $sql1 = "DELETE FROM eventq WHERE id_event='$id_event'";
         $this->db->query($sql1);
         $this->db->commit();
+        */
+        try {
+          $this->db->begin_transaction();
+          $sql1 = "INSERT INTO event SELECT * FROM eventq WHERE id_event='$id_event'";
+          $this->db->query($sql1);
+          $sql1 = "DELETE FROM eventq WHERE id_event='$id_event'";
+          $this->db->query($sql1);
+          $this->db->commit();
+          return true;
+        } catch (Exception $e) {
+          $db->rollback();
+          return false;
+        }
       //usunięcie
       }else if($action == 2){
         $sql1 = "DELETE FROM eventq WHERE id_event='$id_event'";
@@ -54,7 +68,19 @@ class AdminActions extends UserActions{
       //akceptacja
       if($musicradio == 1){
         //transaction
-        $this->db->begin_transaction();
+        try {
+          $this->db->begin_transaction();
+          $sql1 = "INSERT INTO music SELECT * FROM musicq WHERE id_music='$music'";
+          $this->db->query($sql1);
+          $sql1 = "DELETE FROM musicq WHERE id_music='$music'";
+          $this->db->query($sql1);
+          $this->db->commit();
+          return true;
+        } catch (Exception $e) {
+          $db->rollback();
+          return false;
+        }
+        /*
         $sql1 = "INSERT INTO music SELECT * FROM musicq WHERE id_music='$music'";
         $stmt = $this->db->prepare($sql1);
         if(!$stmt->execute())
@@ -69,6 +95,7 @@ class AdminActions extends UserActions{
         //$stmt->close();
         $this->db->commit();
         return true;
+        */
       //usunięcie
       }else if($musicradio == 2){
         $sql1 = "DELETE FROM musicq WHERE id_music='$music'";
