@@ -83,8 +83,10 @@ class UserActions{
     return $result;
   }
 
-  public function addMusic(){
-
+  public function addMusic($title,$performer,$year,$genreradio,$formatselect,$iduser){
+    $sql = "INSERT INTO musicq (title, year, performer, id_format, id_genre, id_whoadd) VALUES ('$title', '$year', '$performer','$formatselect','$genreradio','$iduser')";
+    $result = mysqli_query($this->db,$sql) or die(mysqli_connect_errno()."Data cannot inserted");
+    return $result;
   }
 
 }

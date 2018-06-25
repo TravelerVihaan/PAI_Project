@@ -5,12 +5,12 @@ $admin = new AdminActions();
 
 if (isset($_REQUEST['submit'])) {
   extract($_REQUEST);
-  $change = $admin->deleteUser($usertoban);
+  $change = $admin->acceptMusic($music, $musicradio);
   if ($change) {
-     header("location:userslist.php");
-     $_SESSION['tmpdelete'] = 1;
+     header("location:musicqueue.php");
+     $_SESSION['tmpmusicq'] = 1;
   } else {
-      $_SESSION['tmpdelete'] = 2;
+      $_SESSION['tmpmusicq'] = 2;
   }
 }
 ?>
@@ -42,62 +42,85 @@ if (isset($_REQUEST['submit'])) {
                           <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="index.php">Strona główna</a></li>
                             <li class="breadcrumb-item"><a href="adminpage.php">Panel Administratora</a></li>
-                            <li class="breadcrumb-item active">Lista użytkowników</li>
+                            <li class="breadcrumb-item active">Kolejka muzyki</li>
                           </ol>
                         </div>
                   </div>
                 </div>
                 <br>
-                <h3> Lista użytkowników</h3><br>
+                <h3> Kolejka muzyki</h3><br>
                 <?php
                 if(isset($_SESSION['uid']) and $_SESSION['uid'] == 1){
 
-                  if(isset($_SESSION['tmpdelete']) and $_SESSION['tmpdelete'] == 1){ ?>
-                      <div class="alert alert-success" role="alert">Użytkownik został usunięty!</div>
+                  if(isset($_SESSION['tmpmusicq']) and $_SESSION['tmpmusicq'] == 1){ ?>
+                      <div class="alert alert-success" role="alert">Akcja została wykonana pomyślnie!</div>
                       <?php
-                      $_SESSION['tmpdelete'] = 0;
-                    }else if(isset($_SESSION['tmpdelete']) and $_SESSION['tmpdelete'] == 2){
+                      $_SESSION['tmpmusicq'] = 0;
+                    }else if(isset($_SESSION['tmpmusicq']) and $_SESSION['tmpmusicq'] == 2){
                       ?>
-                      <div class="alert alert-danger" role="alert">Wystąpił problem z usunięciem użytkownika!</div>
+                      <div class="alert alert-danger" role="alert">Wystąpił problem z wykonaniem akcji!</div>
                         <?php
-                      $_SESSION['tmpdelete'] = 0;
+                      $_SESSION['tmpmusicq'] = 0;
                     }
                   ?>
 
                   <form method=post>
                       <div class="form-group">
-                          <label for="nick">Usuń użytkownika o nicku:</label>
-                          <input type="text" class="form-control" name="usertoban" placeholder="Wpisz nick użytkownika do usunięcia">
+                          <label for="event">Wykonaj akcję na wydawnictwie o ID:</label>
+                          <input type="text" class="form-control" name="music" placeholder="Podaj ID wydawnictwa">
                       </div>
-                      <input type="submit" name="submit" class="btn btn-dark" value="Usuń użytkownika" />
+                      <div class="form-group">
+                        <label for="musicradio">Wybierz akcję do wykonania:</label>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="musicradio" id="acceptradio" value="1">
+                          <label class="form-check-label" for="acceptradio">
+                            Zaakceptuj
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="musicradio" id="deleteradio" value="2">
+                          <label class="form-check-label" for="deleteradio">
+                            Usuń
+                          </label>
+                        </div>
+                      </div>
+                      <input type="submit" name="submit" class="btn btn-dark" value="Wykonaj" />
                   </form>
 
 
                   <table class="table table-hover">
-    <thead>
-      <tr>
-        <th>Nick</th>
-        <th>Imię</th>
-        <th>Nazwisko</th>
-        <th>E-mail</th>
-        <th>Rola</th>
-      </tr>
-    </thead>
-    <tbody>      <?php
-                  include_once 'logic/Database.php';
-                  $database = new Database();
-                  $q ="SELECT * FROM uzytkownicy";
-                  $result = $database->query($q);
-                  ?>
-                  <tr>
-                  <?php
-                  while($row = mysqli_fetch_assoc($result)){
-                    ?><th scope="row"><?php echo $row["username"]; ?></th>
-                    <td><?php echo $row["name"]; ?></td>
-                    <td><?php echo $row["surname"]; ?></td>
-                    <td><?php echo $row['email']; ?></td>
-                    <td><?php echo $row['rola']; ?></td></td>
-                    </tr>
+                    <thead>
+                      <tr>
+                        <th>ID Muzyki</th>
+                        <th>Wykonawca</th>
+                        <th>Tytuł</th>
+                        <th>Rok wydania</th>
+                        <th>Format</th>
+                        <th>Gatunek</th>
+                        <th>Data dodania</th>
+                        <th>Dodany przez</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <?php
+                      include_once 'logic/Database.php';
+                      $database = new Database();
+                      $q ="SELECT * FROM muzykaq";
+                      $result = $database->query($q);
+                      ?>
+                      <tr>
+                        <?php
+                        while($row = mysqli_fetch_assoc($result)){
+                          ?>
+                          <th scope="row"><?php echo $row["id_music"]; ?></th>
+                          <td><?php echo $row["performer"]; ?></td>
+                          <td><?php echo $row["title"]; ?></td>
+                          <td><?php echo $row['year']; ?></td>
+                          <td><?php echo $row['ftype']; ?></td>
+                          <td><?php echo $row['gname']; ?></td>
+                          <td><?php echo $row['add_date']; ?></td>
+                          <td><?php echo $row['username']; ?></td></td>
+                        </tr>
                     <?php
                   }
 

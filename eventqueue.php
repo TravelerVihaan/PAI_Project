@@ -5,12 +5,12 @@ $admin = new AdminActions();
 
 if (isset($_REQUEST['submit'])) {
   extract($_REQUEST);
-  $change = $admin->deleteUser($usertoban);
+  $change = $admin->acceptEvent($event, $eventradio);
   if ($change) {
-     header("location:userslist.php");
-     $_SESSION['tmpdelete'] = 1;
+     header("location:eventqueue.php");
+     $_SESSION['tmpeq'] = 1;
   } else {
-      $_SESSION['tmpdelete'] = 2;
+      $_SESSION['tmpeq'] = 2;
   }
 }
 ?>
@@ -42,62 +42,83 @@ if (isset($_REQUEST['submit'])) {
                           <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="index.php">Strona główna</a></li>
                             <li class="breadcrumb-item"><a href="adminpage.php">Panel Administratora</a></li>
-                            <li class="breadcrumb-item active">Lista użytkowników</li>
+                            <li class="breadcrumb-item active">Kolejka eventów</li>
                           </ol>
                         </div>
                   </div>
                 </div>
                 <br>
-                <h3> Lista użytkowników</h3><br>
+                <h3> Kolejka eventów</h3><br>
                 <?php
                 if(isset($_SESSION['uid']) and $_SESSION['uid'] == 1){
 
-                  if(isset($_SESSION['tmpdelete']) and $_SESSION['tmpdelete'] == 1){ ?>
-                      <div class="alert alert-success" role="alert">Użytkownik został usunięty!</div>
+                  if(isset($_SESSION['tmpeq']) and $_SESSION['tmpeq'] == 1){ ?>
+                      <div class="alert alert-success" role="alert">Akcja została wykonana pomyślnie!</div>
                       <?php
-                      $_SESSION['tmpdelete'] = 0;
+                      $_SESSION['tmpeq'] = 0;
                     }else if(isset($_SESSION['tmpdelete']) and $_SESSION['tmpdelete'] == 2){
                       ?>
-                      <div class="alert alert-danger" role="alert">Wystąpił problem z usunięciem użytkownika!</div>
+                      <div class="alert alert-danger" role="alert">Wystąpił problem z wykonaniem akcji!</div>
                         <?php
-                      $_SESSION['tmpdelete'] = 0;
+                      $_SESSION['tmpeq'] = 0;
                     }
                   ?>
 
                   <form method=post>
                       <div class="form-group">
-                          <label for="nick">Usuń użytkownika o nicku:</label>
-                          <input type="text" class="form-control" name="usertoban" placeholder="Wpisz nick użytkownika do usunięcia">
+                          <label for="event">Wykonaj akcję na wydarzeniu o ID:</label>
+                          <input type="text" class="form-control" name="event" placeholder="Podaj ID wydarzenia">
                       </div>
-                      <input type="submit" name="submit" class="btn btn-dark" value="Usuń użytkownika" />
+                      <div class="form-group">
+                        <label for="eventradio">Wybierz akcję do wykonania:</label>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="eventradio" id="acceptradio" value="1">
+                          <label class="form-check-label" for="acceptradio">
+                            Zaakceptuj
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="eventradio" id="deleteradio" value="2">
+                          <label class="form-check-label" for="deleteradio">
+                            Usuń
+                          </label>
+                        </div>
+                      </div>
+                      <input type="submit" name="submit" class="btn btn-dark" value="Wykonaj" />
                   </form>
 
 
                   <table class="table table-hover">
-    <thead>
-      <tr>
-        <th>Nick</th>
-        <th>Imię</th>
-        <th>Nazwisko</th>
-        <th>E-mail</th>
-        <th>Rola</th>
-      </tr>
-    </thead>
-    <tbody>      <?php
-                  include_once 'logic/Database.php';
-                  $database = new Database();
-                  $q ="SELECT * FROM uzytkownicy";
-                  $result = $database->query($q);
-                  ?>
-                  <tr>
-                  <?php
-                  while($row = mysqli_fetch_assoc($result)){
-                    ?><th scope="row"><?php echo $row["username"]; ?></th>
-                    <td><?php echo $row["name"]; ?></td>
-                    <td><?php echo $row["surname"]; ?></td>
-                    <td><?php echo $row['email']; ?></td>
-                    <td><?php echo $row['rola']; ?></td></td>
-                    </tr>
+                    <thead>
+                      <tr>
+                        <th>ID Wydarzenia</th>
+                        <th>Nazwa eventu</th>
+                        <th>Data</th>
+                        <th>Data dodania</th>
+                        <th>Miejsce akcji</th>
+                        <th>Krótki opis</th>
+                        <th>Dodany przez</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <?php
+                      include_once 'logic/Database.php';
+                      $database = new Database();
+                      $q ="SELECT * FROM eventq";
+                      $result = $database->query($q);
+                      ?>
+                      <tr>
+                        <?php
+                        while($row = mysqli_fetch_assoc($result)){
+                          ?>
+                          <th scope="row"><?php echo $row["id_event"]; ?></th>
+                          <td><?php echo $row["ename"]; ?></td>
+                          <td><?php echo $row["date"]; ?></td>
+                          <td><?php echo $row['add_date']; ?></td>
+                          <td><?php echo $row['location']; ?></td>
+                          <td><?php echo $row['description']; ?></td>
+                          <td><?php echo $row['id_whoadd']; ?></td></td>
+                        </tr>
                     <?php
                   }
 
